@@ -1,0 +1,5 @@
+---
+title: DUMMY_TITLE
+---
+sequenceDiagram
+    participant A as Alice

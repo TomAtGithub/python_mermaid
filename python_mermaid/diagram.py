@@ -6,7 +6,8 @@ from .interaction import Interaction
 DIAGRAM_TYPES = {
     "default": "graph",
     "flowchart": "flowchart",
-    "statechart": "stateDiagram-v2"
+    "statechart": "stateDiagram-v2",
+    "sequenceDiagram": "sequenceDiagram"
 }
 
 DIAGRAM_ORIENTATION = {
@@ -94,6 +95,21 @@ class MermaidDiagram:
         )
         return '\n'.join(final_strings)
 
+    def __get_sequence_diagram_str(self):
+        nodes_string = (
+            '\n'.join([str(node) for node in self.nodes if str(node)!=""])
+        )
+        final_strings = list(
+            filter(
+                None,
+                [
+                    f"{self.type}",
+                    nodes_string,
+                ]
+            )
+        )
+        return '\n'.join(final_strings)
+
     def __str__(self):
         self.string = f"---\ntitle: {self.title}\n---\n" if self.title else ""
         content = ""
@@ -101,6 +117,8 @@ class MermaidDiagram:
             content = self.__get_graph_str()
         elif self.type == "stateDiagram-v2":
             content = self.__get_state_diagram_str()
+        elif self.type == "sequenceDiagram":
+            content = self.__get_sequence_diagram_str()
         self.string += content
         return self.string
         

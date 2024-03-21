@@ -107,3 +107,28 @@ class StateNode(AbstractNode):
                 result += f"\nnote {self.note['position']} of {self.id}: " \
                        +  f"{self.note['message']}"
         return result
+
+SEQUENCE_NODE_SHAPES = {
+    "participant": "participant",
+    "actor": "actor"
+}        
+
+class SequenceNode(AbstractNode):
+    def __init__(
+            self,
+            id: str,
+            content: str = "",
+            shape: str = "participant"
+    ):
+        super().__init__(id, content)
+        self.shape = SEQUENCE_NODE_SHAPES[shape]
+
+    def __str__(self):
+        s = ""
+        s += ' '.join([
+            self.shape,
+            self.id,
+            "as",
+            self.content
+        ])
+        return s
