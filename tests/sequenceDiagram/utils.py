@@ -1,4 +1,4 @@
-from python_mermaid.link import Link
+from python_mermaid.link import SequenceLink
 from python_mermaid.node import SequenceNode
 from python_mermaid.interaction import Interaction
 from python_mermaid.diagram import (
@@ -16,6 +16,15 @@ NODE_1_ACTOR = SequenceNode(
     "My first node",
     shape="actor"
 )
+NODE_3 = SequenceNode(
+    id="A",
+    content="Alice"
+)
+NODE_4 = SequenceNode(
+    id="A",
+    content="Alice",
+    shape="actor"
+)
 INTERACTION_1 = Interaction(
     NODE_1,
     args=["https://wikipedia.org"]
@@ -24,16 +33,28 @@ INTERACTION_1 = Interaction(
 #     "My big node",
 #     sub_nodes=[NODE_1]
 # )
-LINK_1 = Link(
+LINK_1 = SequenceLink(
     NODE_1,
     NODE_2
 )
-LINK_2 = Link(
+LINK_2 = SequenceLink(
     NODE_2,
-    NODE_1
+    NODE_1,
+    shape="dotted"
 )
-LINK_3 = Link(
+LINK_3 = SequenceLink(
     NODE_1,
     NODE_2,
-    shape="thick"
+    head_right="none",
+    message="some message"
+)
+LINK_4 = SequenceLink(
+    NODE_1,
+    NODE_2,
+    activate=True
+)
+LINK_5 = SequenceLink(
+    NODE_1,
+    NODE_2,
+    deactivate=True
 )

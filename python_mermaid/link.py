@@ -1,4 +1,4 @@
-from .node import AbstractNode, StateNode
+from .node import AbstractNode, StateNode, SequenceNode
 
 # Link are created following the documentation here :
 # https://mermaid.js.org/syntax/flowchart.html#links-between-nodes
@@ -14,6 +14,18 @@ LINK_HEADS = {
     "left-arrow": "<",
     "bullet": "o",
     "cross": "x"
+}
+
+# https://mermaid.js.org/syntax/sequenceDiagram.html#messages
+SEQUENCE_LINK_SHAPES = {
+    "solid": "-",
+    "dotted": "--"
+}
+SEQUENCE_LINK_HEADS = {
+    "none": ">",
+    "arrow": ">>",
+    "cross": "x",
+    "open": ")"
 }
 
 
@@ -53,4 +65,31 @@ class StateLink(Link):
         element = f"{self.origin.id} --> {self.end.id}"
         if self.message != "":
             element += f": {self.message}"
+        return element
+
+class SequenceLink():
+    def __init__(
+        self, 
+        origin: SequenceNode,
+        end: SequenceNode,
+        shape: str = "solid",
+        head_right: str = "arrow",
+        message: str = "",
+        activate: bool = False,
+        deactivate: bool = False
+    ):
+        self.origin = origin
+        self.end = end    
+        self.shape = SEQUENCE_LINK_SHAPES[shape]
+        self.head_right = SEQUENCE_LINK_HEADS[head_right]
+        self.message = message
+        self.activate = activate
+        self.deactivate = deactivate
+    
+    def __str__(self):
+        activation = "+" if self.activate == True else "-" if self.deactivate == True else ""
+        message = self.message if self.message != "" else " "
+
+        element = f"{self.origin.id}{self.shape}{self.head_right}{activation}{self.end.id}:{message}"
+        
         return element
