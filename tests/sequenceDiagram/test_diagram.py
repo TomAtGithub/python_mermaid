@@ -31,3 +31,19 @@ title: My diagram
 sequenceDiagram
 actor my_first_node as My first node""";
     assert str(m) == diagram
+
+def test_diagram_with_links():
+    m = MermaidDiagram(
+        title=DUMMY_TITLE, 
+        type="sequenceDiagram",
+        nodes=[NODE_1, NODE_2],
+        links=[LINK_1]
+    )
+    diagram = """---
+title: My diagram
+---
+sequenceDiagram
+participant my_first_node as My first node
+participant my_second_node as My second node
+my_first_node->>my_second_node: \n%"""
+    assert str(m) == diagram

@@ -88,7 +88,9 @@ class SequenceLink():
     
     def __str__(self):
         activation = "+" if self.activate == True else "-" if self.deactivate == True else ""
-        message = self.message if self.message != "" else " "
+        #\n%w is an workaround. For some reason does the mermaid live editor render links with no comment but the browser version from jsdelivery requires one
+        #Added a newline and a comment seems to solve this
+        message = self.message if self.message != "" else " \n%"
 
         element = f"{self.origin.id}{self.shape}{self.head_right}{activation}{self.end.id}:{message}"
         

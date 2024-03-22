@@ -99,12 +99,16 @@ class MermaidDiagram:
         nodes_string = (
             '\n'.join([str(node) for node in self.nodes if str(node)!=""])
         )
+        links_string = (
+            '\n'.join([str(link) for link in self.links])
+        )
         final_strings = list(
             filter(
                 None,
                 [
                     f"{self.type}",
                     nodes_string,
+                    links_string
                 ]
             )
         )
